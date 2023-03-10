@@ -33,4 +33,5 @@ x.y.z.someFile.printContent()
 print(filesThatContains(x,"hello"))
 print(filesThatContains(x,"world"))
 print(filesThatContains(x,"abc"))
+print(filesThatContains(x.y,"world"))
 
