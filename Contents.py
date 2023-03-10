@@ -40,7 +40,7 @@ class Directory:
     def __str__(self):
         return f"Folder {self._name} in {self.printPath()}"
     def __repr__(self):
-        return f"Folder {self._name} in {self.printPath()}"
+        return f"Folder \"{self._name}\" in {self.printPath()}"
 
     def getContents(self):
         return self._contents
@@ -71,7 +71,7 @@ class File:
         return f"File {self._name} in {self.printPath()}"
 
     def __repr__(self):
-        return f"File {self._name} in {self.printPath()}"
+        return f"File \"{self._name}\" in {self.printPath()}"
 
 def filesThatContains(folder:Directory, word:str):
     files=[]
