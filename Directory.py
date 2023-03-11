@@ -1,39 +1,46 @@
-# import os
-#
-# class Directory:
-#
-#     def __init__(self, name, father_folder=None):
-#         self.name=name
-#         self.contents = []
-#         self.father_folder=father_folder
-#         if self.father_folder!=None:
-#             self.path=self.father_folder.printPath() + "\\" + self.name
-#             self.father_folder.add_content(self)
-#         else:
-#             self.path = os.path.abspath(".") + "\\" + self.name
-#
-#
-#
-#     def printPath(self):
-#         if self.father_folder==None:
-#             return os.path.abspath(".") + "\\" + self.name
-#         else:
-#             return self.father_folder.printPath() + "\\" + self.name
-#
-#
-#     def add_content(self,son_folder):
-#         if son_folder not in self.contents:
-#             self.contents.append(son_folder)
-#         if self.father_folder!=None:
-#             self.father_folder.add_content(self)
-#
-#     def __getattr__(self, name):
-#         try:
-#             return super().__getattr__(name)
-#         except AttributeError:
-#             if name in self.__dict__:
-#                 return self.__dict__[name]
-#             for sub_folder in self.contents:
-#                 if sub_folder.name==name:
-#                     return sub_folder
-#
+import os
+
+class Directory:
+
+    def __init__(self,name,father_folder=None):
+        self._name=name
+        self._father_folder=father_folder
+        self._contents=[]
+        self._path=self.printPath()
+        if self._father_folder!=None:
+            self._father_folder.addSubfolder(self)
+
+
+    def printPath(self):
+        if self._father_folder==None:
+            return os.path.abspath('.')
+        else:
+            return f"{self._father_folder.printPath()}\{self._father_folder._name}"
+
+    def addSubfolder(self,son_folder):
+            if son_folder not in self._contents:
+                self._contents.append(son_folder)
+            if self._father_folder != None:
+                self._father_folder.addSubfolder(self)
+
+    def addFile(self,file):
+            if file not in self._contents:
+                self._contents.append(file)
+
+
+    def __getattr__(self, attr):
+        try:
+            for folder in self._contents:
+                if folder._name == attr:
+                    return folder
+            return super().__getattribute__(attr)
+        except AttributeError as e:
+            raise e
+
+    def __str__(self):
+        return f"Folder {self._name} in {self.printPath()}"
+    def __repr__(self):
+        return f"Folder \"{self._name}\" in {self.printPath()}"
+
+    def getContents(self):
+        return self._contents
