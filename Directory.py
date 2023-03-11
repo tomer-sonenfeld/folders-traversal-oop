@@ -1,34 +1,49 @@
 import os
 
 class Directory:
-
-    def __init__(self,name,father_folder=None):
+    def __init__(self,name:str,father_folder:'Directory'=None):
         self._name=name
         self._father_folder=father_folder
         self._contents=[]
-        self._path=self.printPath()
+        self._path=self.print_path()
         if self._father_folder!=None:
-            self._father_folder.addSubfolder(self)
+            self._father_folder.add_subfolder(self)
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def path(self):
+        return self._path
+
+    @property
+    def father_folder(self):
+        return self._father_folder
+
+    @property
+    def contents(self):
+        return self._contents
 
 
-    def printPath(self):
-        if self._father_folder==None:
-            return os.path.abspath('.')
+    def print_path(self):
+        if self.father_folder==None:
+            return os.getcwd()
         else:
-            return f"{self._father_folder.printPath()}\{self._father_folder._name}"
+            return f"{self.father_folder.print_path()}\{self.father_folder._name}"
 
-    def addSubfolder(self,son_folder):
-            if son_folder not in self._contents:
-                self._contents.append(son_folder)
-            if self._father_folder != None:
-                self._father_folder.addSubfolder(self)
+    def add_subfolder(self, son_folder:'Directory'):
+            if son_folder not in self.contents:
+                self.contents.append(son_folder)
+            if self.father_folder != None:
+                self.father_folder.add_subfolder(self)
 
-    def addFile(self,file):
-            if file not in self._contents:
-                self._contents.append(file)
+    def add_file(self, file:'File'):
+            if file not in self.contents:
+                self.contents.append(file)
 
 
-    def __getattr__(self, attr):
+    def __getattr__(self, attr:str):
         try:
             for folder in self._contents:
                 if folder._name == attr:
@@ -38,9 +53,7 @@ class Directory:
             raise e
 
     def __str__(self):
-        return f"Folder {self._name} in {self.printPath()}"
+        return f"Folder {self.name} in {self.print_path()}"
     def __repr__(self):
-        return f"Folder \"{self._name}\" in {self.printPath()}"
+        return f"Folder \"{self.name}\" in {self.print_path()}"
 
-    def getContents(self):
-        return self._contents
