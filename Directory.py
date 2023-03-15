@@ -1,13 +1,12 @@
 import os
 
 class Directory:
-    def __init__(self, name:str, parent: 'Directory'=None):
-        self._name=name
-        self._father_folder=parent
-        self._contents=[]
-        self._path=self.print_path()
-        if self._father_folder is not None:
-            self._father_folder.add_subfolder(self)
+    def __init__(self, path:str):
+        self._path=path
+
+    def traverse(self):
+        return
+
 
     @property
     def name(self):
