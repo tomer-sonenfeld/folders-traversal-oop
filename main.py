@@ -19,16 +19,11 @@ def files_that_contains(folder: 'Directory', word:str):
 
 if __name__ == "__main__":
 
-    # Define the directory you want to traverse
-    directory = os.getcwd()
+    files_scanner = Search()
+    print(files_scanner.search_by_content(r"C:\Users\tomer\PycharmProjects\Training\testFolder","hello"))
 
-    # Traverse the directory using os.walk()
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            # Do something with the file
-            print(os.path.join(root, file))
 
-    # result should include list of all paths that has the searched word..
+
 
 
 
