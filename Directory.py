@@ -6,7 +6,7 @@ class Directory:
         self._father_folder=parent
         self._contents=[]
         self._path=self.print_path()
-        if self._father_folder!=None:
+        if self._father_folder is not None:
             self._father_folder.add_subfolder(self)
 
     @property

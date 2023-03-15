@@ -6,7 +6,7 @@ class File:
         self._content=content
         self._father_folder=father_folder
         self._path = self.print_path()
-        if self.father_folder != None:
+        if self.father_folder is not None:
             self.father_folder.add_file(self)
         with open(name, 'w') as f:
             f.write(self.content)
