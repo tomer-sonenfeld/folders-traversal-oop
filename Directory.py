@@ -1,9 +1,9 @@
 import os
 
 class Directory:
-    def __init__(self,name:str,father_folder:'Directory'=None):
+    def __init__(self, name:str, parent: 'Directory'=None):
         self._name=name
-        self._father_folder=father_folder
+        self._father_folder=parent
         self._contents=[]
         self._path=self.print_path()
         if self._father_folder!=None:
@@ -35,7 +35,7 @@ class Directory:
     def add_subfolder(self, son_folder:'Directory'):
             if son_folder not in self.contents:
                 self.contents.append(son_folder)
-            if self.father_folder != None:
+            if self.father_folder is not None:
                 self.father_folder.add_subfolder(self)
 
     def add_file(self, file:'File'):
