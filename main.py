@@ -20,7 +20,8 @@ def files_that_contains(folder: 'Directory', word:str):
 if __name__ == "__main__":
 
     files_scanner = Search()
-    print(files_scanner.search_by_content(r"C:\Users\tomer\PycharmProjects\Training\testFolder","hello"))
+    result= files_scanner.search_by_content(r"C:\Users\tomer\PycharmProjects\Training\testFolder","hello")
+    print(result)
 
 
 
