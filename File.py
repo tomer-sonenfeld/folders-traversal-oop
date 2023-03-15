@@ -21,10 +21,5 @@ class File:
         return self._path
 
 
-    def __str__(self):
-        return f"File {self.name} in {self.print_path()}"
-
-    def __repr__(self):
-        return f"File \"{self.name}\" in {self.print_path()}"
 
 
