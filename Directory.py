@@ -42,8 +42,3 @@ class Directory:
         except AttributeError as e:
             raise e
 
-    def __str__(self):
-        return f"Folder {self.name} in {self.print_path()}"
-    def __repr__(self):
-        return f"Folder \"{self.name}\" in {self.print_path()}"
-
