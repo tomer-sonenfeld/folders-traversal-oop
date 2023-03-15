@@ -1,5 +1,6 @@
 from Directory import Directory
 from File import File
+from Search import Search
 
 def files_that_contains(folder: 'Directory', word:str):
     files=[]
@@ -10,6 +11,9 @@ def files_that_contains(folder: 'Directory', word:str):
         elif isinstance(item,Directory):
             files.extend(files_that_contains(item, word))
     return files
+
+    def Search(self):
+        return Search()
 
 
 if __name__ == "__main__":
