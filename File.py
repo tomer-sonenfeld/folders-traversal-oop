@@ -1,40 +1,24 @@
 import os
 
 class File:
-    def __init__(self,name:str,content:str,father_folder:'Directory'=None):
-        self._name=name
-        self._content=content
-        self._father_folder=father_folder
-        self._path = self.print_path()
-        if self.father_folder is not None:
-            self.father_folder.add_file(self)
-        with open(name, 'w') as f:
-            f.write(self.content)
+    def __init__(self,path:str):
+        self._path=path
 
-    @property
-    def name(self):
-        return self._name
+
+    def include_word(self,word):
+        with open(self.path, 'r') as file_opened:
+            file_contents = file_opened.read()
+            if word in file_contents:
+                return True;
+
+        return False
+
+    def my_path(self):
+        return self.path
 
     @property
     def path(self):
         return self._path
-
-    @property
-    def father_folder(self):
-        return self._father_folder
-
-    @property
-    def content(self):
-        return self._content
-
-    def print_path(self):
-        if self._father_folder == None:
-            return os.getcwd()
-        else:
-            return f"{self.father_folder.print_path()}\{self.father_folder._name}"
-
-    def print_content(self):
-        print(self._content)
 
 
     def __str__(self):
