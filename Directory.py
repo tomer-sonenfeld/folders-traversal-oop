@@ -1,5 +1,4 @@
 import os
-import ntpath
 
 
 class FailedToCreateDirectory(Exception):
