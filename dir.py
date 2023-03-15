@@ -1,4 +1,5 @@
 import os
+from training import file
 
 
 class NotDirInstance(Exception):
@@ -6,7 +7,7 @@ class NotDirInstance(Exception):
 
 
 class Dir:
-    def __init__(self, path: str, parent=None):
+    def __init__(self, path: str, parent: object = None):
         self._path = path
 
         if parent is None:
@@ -26,15 +27,14 @@ class Dir:
         except AttributeError:
             return self.match_files(item)
 
-
     def full_path(self):
         if self._fullpath == "":
             if self._parent is None:
                 self._fullpath = os.path.join("", self._path)
             else:
                 self._fullpath = os.path.join(self._parent.full_path(), self._path)
-
-        return self._fullpath
+        else:
+            return self._fullpath
 
     def match_files(self, word):
         matched_file_paths = []
@@ -44,12 +44,9 @@ class Dir:
                 matched_file_paths += sub_dir.match_files(word)
 
             elif os.path.isfile(sub_dir.full_path()):
-                try:
-                    with open(sub_dir.full_path(), "r") as file:
-                        if word in file.read():
-                            matched_file_paths.append(sub_dir.full_path())
-                except UnicodeDecodeError:
-                    continue
+                f = file.File(sub_dir)
+                if f.word_match(word):
+                    matched_file_paths.append(sub_dir.full_path())
 
         return matched_file_paths
 
