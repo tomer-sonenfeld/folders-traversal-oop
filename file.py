@@ -5,7 +5,7 @@ class File:
         self._path=path
 
 
-    def is_word_included(self, word):
+    def is_word_included(self, word) -> bool:
         with open(self._path, 'r') as file_opened:
             file_contents = file_opened.read()
         return word in file_contents

@@ -6,7 +6,7 @@ class Directory:
         self._path=path
         self._files_found=[]
 
-    def traverse(self):
+    def traverse(self) -> list:
         items_found=[]
         for inner_path in os.listdir(self._path):
             if os.path.isfile(os.path.join(self._path,inner_path)):
@@ -19,7 +19,7 @@ class Directory:
         return items_found
 
 
-    def files_with_content(self,word:str):
+    def files_with_content(self,word:str) ->list:
         files_with_word=[]
         for file in self._files_found:
                 if file.is_word_included(word):
