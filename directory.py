@@ -7,14 +7,17 @@ class Directory:
         self._my_files=[]
 
     def traverse(self):
+        items_found=[]
         for item in os.listdir(self._path):
-            if os.path.isfile(self._path+"\\"+item):
-                file_checked = File(self._path+"\\"+item)
-                self._my_files.append(file_checked)
+            if os.path.isfile(os.path.join(self._path,item)):
+                file_checked = File(os.path.join(self._path,item))
+                #self._my_files.append(file_checked)
+                items_found.append(file_checked)
             else:
-                dir = Directory(self._path+"\\"+item)
-                dir.traverse()
-                self.my_files.extend(dir._my_files)
+                dir = Directory(os.path.join(self._path,item))
+                items_found.extend(dir.traverse())
+        self._my_files.extend(items_found)
+        return items_found
 
 
     def files_with_content(self,word:str):
