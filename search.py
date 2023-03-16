@@ -1,5 +1,5 @@
 from directory import Directory
-from custom_exceptions import FolderNotFoundError
+from exceptions import FolderNotFoundError
 import os
 
 class Search:
