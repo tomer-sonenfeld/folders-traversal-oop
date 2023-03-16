@@ -6,7 +6,7 @@ class File:
 
 
     def include_word(self,word):
-        with open(self.path, 'r') as file_opened:
+        with open(self._path, 'r') as file_opened:
             file_contents = file_opened.read()
             if word in file_contents:
                 return True;
