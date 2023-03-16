@@ -24,8 +24,11 @@ class Directory:
         files_found=self._traverse()
         files_with_word=[]
         for _file in files_found:
-            if _file.is_word_included(word):
-                files_with_word.append(_file.path)
+            try:
+                if _file.is_word_included(word):
+                    files_with_word.append(_file.path)
+            except:
+                print(f"Could'nt read file {_file.path} because of coding exception")
 
         return files_with_word
 
