@@ -1,5 +1,6 @@
 import os
 from file import File
+
 class Directory:
     def __init__(self, path:str):
         self._path=path
@@ -9,15 +10,15 @@ class Directory:
         for inner_path in os.listdir(self._path):
             full_path=os.path.join(self._path,inner_path)
             if os.path.isfile(full_path):
-                file_checked = File(full_path)
-                items_found.append(file_checked)
+                _file = File(full_path)
+                items_found.append(_file)
             else:
                 dir = Directory(full_path)
                 items_found.extend(dir._traverse())
         return items_found
 
 
-    def files_with_content(self,word:str) ->list:
+    def files_with_content(self,word:str) -> list:
         files_found=self._traverse()
         files_with_word=[]
         for _file in files_found:
