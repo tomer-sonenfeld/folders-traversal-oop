@@ -11,7 +11,6 @@ class Directory:
         for inner_path in os.listdir(self._path):
             if os.path.isfile(os.path.join(self._path,inner_path)):
                 file_checked = File(os.path.join(self._path,inner_path))
-                #self._my_files.append(file_checked)
                 items_found.append(file_checked)
             else:
                 dir = Directory(os.path.join(self._path,inner_path))
@@ -23,8 +22,8 @@ class Directory:
     def files_with_content(self,word:str):
         files_with_word=[]
         for file in self._files_in_directory:
-                if file.include_word(word):
-                    files_with_word.append(file.my_path())
+                if file.is_word_included(word):
+                    files_with_word.append(file.path)
 
         return files_with_word
 

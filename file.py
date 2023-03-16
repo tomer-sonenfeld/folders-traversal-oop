@@ -5,16 +5,10 @@ class File:
         self._path=path
 
 
-    def include_word(self,word):
+    def is_word_included(self, word):
         with open(self._path, 'r') as file_opened:
             file_contents = file_opened.read()
-            if word in file_contents:
-                return True;
-
-        return False
-
-    def my_path(self):
-        return self.path
+        return word in file_contents
 
     @property
     def path(self):
