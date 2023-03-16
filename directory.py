@@ -2,6 +2,7 @@
 
 import os
 from file import File
+from exceptions import unreadableFileError
 
 class Directory:
     def __init__(self, path:str):
@@ -27,8 +28,8 @@ class Directory:
             try:
                 if _file.is_word_included(word):
                     files_with_word.append(_file.path)
-            except:
-                print(f"Could'nt read file {_file.path} because of coding exception")
+            except UnicodeDecodeError:
+                f"Could'nt read file {_file.path} because of coding exception"
 
         return files_with_word
 
