@@ -38,12 +38,3 @@ class Directory:
 
 
 
-    def __getattr__(self, attr:str):
-        try:
-            for folder in self._contents:
-                if folder._name == attr:
-                    return folder
-            return super().__getattribute__(attr)
-        except AttributeError as e:
-            raise e
-
