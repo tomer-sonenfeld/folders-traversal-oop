@@ -22,7 +22,7 @@ class Directory:
         files_with_word=[]
         for _file in files:
             if _file.is_word_included(word):
-                 files_with_word.append(_file.path)
+                files_with_word.append(_file.path)
 
         return files_with_word
 
