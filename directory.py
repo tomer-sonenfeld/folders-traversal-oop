@@ -27,13 +27,6 @@ class Directory:
 
         return files_with_word
 
-    @property
-    def my_files(self):
-        return self._files_in_directory
-
-    @property
-    def path(self):
-        return self._path
 
 
 
