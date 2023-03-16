@@ -1,4 +1,4 @@
-from Search import Search
+from search import Search
 
 if __name__ == "__main__":
 

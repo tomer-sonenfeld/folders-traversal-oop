@@ -1,5 +1,5 @@
 import os
-from File import File
+from file import File
 
 class Directory:
     def __init__(self, path:str):
