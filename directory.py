@@ -2,7 +2,6 @@
 
 import os
 from file import File
-from exceptions import unreadableFileError
 
 class Directory:
     def __init__(self, path:str):
@@ -17,7 +16,7 @@ class Directory:
                 items_found.append(_file)
             elif os.path.isdir(full_path):
                 dir = Directory(full_path)
-                items_found.extend(dir._traverse())
+                items_found.extend(dir.traverse)
         return items_found
 
 
@@ -30,8 +29,13 @@ class Directory:
                     files_with_word.append(_file.path)
             except UnicodeDecodeError:
                 f"Could'nt read file {_file.path} because of coding exception"
-
         return files_with_word
+
+    @property
+    def traverse(self):
+        return self._traverse()
+
+
 
 
 
