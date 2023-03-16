@@ -4,7 +4,6 @@ from file import File
 class Directory:
     def __init__(self, path:str):
         self._path=path
-        self._files_found=[]
 
     def traverse(self) -> list:
         items_found=[]
@@ -15,15 +14,14 @@ class Directory:
             else:
                 dir = Directory(os.path.join(self._path,inner_path))
                 items_found.extend(dir.traverse())
-        self._files_found.extend(items_found)
         return items_found
 
 
-    def files_with_content(self,word:str) ->list:
+    def files_with_content(self,files:list,word:str) ->list:
         files_with_word=[]
-        for file in self._files_found:
-                if file.is_word_included(word):
-                    files_with_word.append(file.path)
+        for _file in files:
+                if _file.is_word_included(word):
+                    files_with_word.append(_file.path)
 
         return files_with_word
 
