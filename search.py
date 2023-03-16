@@ -1,4 +1,5 @@
 from directory import Directory
+from custom_exceptions import FolderNotFoundError
 import os
 
 class Search:
@@ -9,4 +10,4 @@ class Search:
             dir.traverse()
             return dir.files_with_content(word)
         else:
-            raise FileNotFoundError("Folder not found")
+            raise FolderNotFoundError(path)
