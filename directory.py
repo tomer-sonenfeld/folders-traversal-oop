@@ -11,10 +11,10 @@ class Directory:
         items_found=[]
         for inner_path in os.listdir(self._path):
             full_path=os.path.join(self._path,inner_path)
-            if os.path.isfile(full_path):
+            if os.path.isfile(full_path) and full_path.endswith(".txt"):
                 _file = File(full_path)
                 items_found.append(_file)
-            else:
+            elif os.path.isdir(full_path):
                 dir = Directory(full_path)
                 items_found.extend(dir._traverse())
         return items_found
