@@ -6,8 +6,8 @@ class File:
 
 
     def is_word_included(self, word:str) -> bool:
-        with open(self._path, 'r') as file_opened:
-            content = file_opened.read()
+        with open(self._path, 'r') as _file:
+            content = _file.read()
         return word in content
 
     @property
