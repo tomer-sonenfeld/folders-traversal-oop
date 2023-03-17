@@ -7,7 +7,10 @@ class File:
 
     def is_word_included(self, word:str) -> bool:
         with open(self._path, 'r') as _file:
-            content = _file.read()
+            try:
+                content = _file.read()
+            except UnicodeDecodeError:
+                return False
         return word in content
 
     @property
