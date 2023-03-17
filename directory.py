@@ -7,7 +7,7 @@ class Directory:
     def __init__(self, path:str):
         self._path=path
 
-    def _traverse(self) -> list:
+    def traverse(self) -> list:
         files_found=[]
         for inner_path in os.listdir(self._path):
             full_path=os.path.join(self._path,inner_path)
@@ -16,12 +16,12 @@ class Directory:
                 files_found.append(_file)
             elif os.path.isdir(full_path):
                 child = Directory(full_path)
-                files_found.extend(child.traverse)
+                files_found.extend(child.traverse())
         return files_found
 
 
     def files_with_content(self,word:str) -> list:
-        files_found=self._traverse()
+        files_found=self.traverse()
         files_with_word=[]
         for _file in files_found:
             try:
@@ -30,10 +30,6 @@ class Directory:
             except UnicodeDecodeError:
                 f"Could'nt read file {_file.path} because of coding exception"
         return files_with_word
-
-    @property
-    def traverse(self):
-        return self._traverse()
 
 
 
