@@ -24,7 +24,7 @@ class Directory:
         files_with_word=set()
         for _file in files_found:
                 if _file.is_word_included(word):
-                    files_with_word.add(_file.path)
+                    files_with_word.add(_file)
         return files_with_word
 
 
