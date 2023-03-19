@@ -1,7 +1,7 @@
 
 
-from directory import Directory
-from exceptions import FolderNotFoundError
+from .directory import Directory
+from .exceptions import FolderNotFoundError
 import os
 
 class Search:
