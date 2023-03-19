@@ -17,7 +17,7 @@ def test_traverse(testing_folder_path):
                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_exclude_word"),
                       os.path.join(testing_folder_path, "testing_file_unicode_error")
                       }
-    assert set([f.path for f in files_found]) == expected_files
+    assert set([_file.path for _file in files_found]) == expected_files
 
 
 def test_files_with_content(testing_folder_path):
@@ -26,4 +26,4 @@ def test_files_with_content(testing_folder_path):
     files_found_with_word = _dir.files_with_content(word)
     expected_files = {os.path.join(testing_folder_path, "testing_file_include_word"),
                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_include_word")}
-    assert set([f.path for f in files_found_with_word]) == expected_files
+    assert set([_file.path for _file in files_found_with_word]) == expected_files
