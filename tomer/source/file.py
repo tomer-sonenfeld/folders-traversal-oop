@@ -17,6 +17,9 @@ class File:
     def path(self):
         return self._path
 
+    def __repr__(self):
+        return self._path
+
 
 
 
