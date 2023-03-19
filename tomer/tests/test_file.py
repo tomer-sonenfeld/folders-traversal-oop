@@ -1,4 +1,7 @@
 import os
+
+import pytest
+
 from tomer import source
 
 def test_is_word_included_word_included():
@@ -12,3 +15,12 @@ def test_is_word_included_word_not_included():
     test_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_folder", "test_file_no_hello")
     _file = source.File(test_file_path)
     assert not _file.is_word_included(word)
+
+def test_is_word_included_unreadable_file():
+    word="hello"
+    test_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_folder", "test_file_unicode_error")
+    _file = source.File(test_file_path)
+    with pytest.raises(UnicodeDecodeError):
+        with open(_file.path, 'r', encoding='ascii') as _file_opened:
+            content = _file_opened.read()
+
