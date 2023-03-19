@@ -20,7 +20,7 @@ def test_search_by_content_unexisting_folder():
 
 def test_search_by_content_file_instead_of_folder():
     files_scanner = source.search.Search()
-    test_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_file")
+    test_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_folder","test_file_hello")
     word = "hello"
     with pytest.raises(NotADirectoryError):
         files_found = files_scanner.search_by_content(test_folder_path, word)
