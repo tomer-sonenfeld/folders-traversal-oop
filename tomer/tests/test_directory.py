@@ -1,8 +1,14 @@
 import os
+
+import pytest
+
 from tomer import source
 
-def test_traverse():
-    test_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_folder")
+@pytest.fixture
+def test_folder_path():
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_folder")
+
+def test_traverse(test_folder_path):
     _dir = source.Directory(test_folder_path)
     files_found = _dir.traverse()
     assert len(files_found) == 5
@@ -17,7 +23,6 @@ def test_traverse():
 
 def test_files_with_content():
     word = "hello"
-    test_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_folder")
     _dir = source.Directory(test_folder_path)
     files_found = _dir.traverse()
     files_found_with_word = _dir.files_with_content(word)
