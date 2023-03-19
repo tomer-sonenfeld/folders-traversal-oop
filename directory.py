@@ -15,8 +15,8 @@ class Directory:
                 _file = File(full_path)
                 files_found.append(_file)
             elif os.path.isdir(full_path):
-                child = Directory(full_path)
-                files_found.extend(child.traverse())
+                sub_dir = Directory(full_path)
+                files_found.extend(sub_dir.traverse())
         return files_found
 
 
