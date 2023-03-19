@@ -13,9 +13,9 @@ def test_traverse(testing_folder_path):
     files_found = _dir.traverse()
     assert len(files_found) == 5
     expected_files = {os.path.join(testing_folder_path, "testing_file_include_word"),
-                      os.path.join(testing_folder_path, "testing_file_excludes_word"),
+                      os.path.join(testing_folder_path, "testing_file_exclude_word"),
                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_include_word"),
-                      os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_excludes_word"),
+                      os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_exclude_word"),
                       os.path.join(testing_folder_path, "testing_file_unicode_error")
                       }
     assert set([f.path for f in files_found]) == expected_files
