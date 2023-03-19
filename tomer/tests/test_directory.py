@@ -21,7 +21,7 @@ def test_traverse(test_folder_path):
     assert set([f.path for f in files_found]) == expected_files
 
 
-def test_files_with_content():
+def test_files_with_content(test_folder_path):
     word = "hello"
     _dir = source.Directory(test_folder_path)
     files_found = _dir.traverse()
