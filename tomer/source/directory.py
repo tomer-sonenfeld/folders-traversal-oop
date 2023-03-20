@@ -26,10 +26,3 @@ class Directory:
                 if _file.is_word_included(word):
                     files_with_word.add(_file)
         return files_with_word
-
-
-
-
-
-
-
