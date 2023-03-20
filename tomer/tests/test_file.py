@@ -17,7 +17,7 @@ def test_is_word_included__word_not_included():
     _file = File(testing_file_path)
     assert not _file.is_word_included(word)
 
-def test_is_word_included_unreadable_file():
+def test_unreadable_file():
     word = "hello"
     testing_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testing_folder", "testing_file_unicode_error")
     _file = File(testing_file_path)
