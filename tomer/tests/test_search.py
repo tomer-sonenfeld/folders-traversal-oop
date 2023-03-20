@@ -1,5 +1,6 @@
 import os
-from tomer import source
+from tomer.source.search import Search
+from tomer.source.exceptions import FolderNotFoundError
 import pytest
 
 @pytest.fixture
@@ -8,7 +9,7 @@ def word():
 
 @pytest.fixture
 def files_scanner():
-    return source.search.Search()
+    return Search()
 
 def test_search_by_content_existing_folder(word,files_scanner):
     testing_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testing_folder")
@@ -21,7 +22,7 @@ def test_search_by_content_existing_folder(word,files_scanner):
 
 def test_search_by_content_unexisting_folder(word,files_scanner):
     testing_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "unexisted_folder")
-    with pytest.raises(source.exceptions.FolderNotFoundError):
+    with pytest.raises(FolderNotFoundError):
         files_found = files_scanner.search_by_content(testing_folder_path, word)
 
 def test_search_by_content_file_instead_of_folder(word,files_scanner):

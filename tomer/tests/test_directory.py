@@ -2,14 +2,14 @@
 
 import os
 import pytest
-from tomer import source
+from tomer.source.directory import Directory
 
 @pytest.fixture
 def testing_folder_path():
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), "testing_folder")
 
 def test_traverse(testing_folder_path):
-    _dir = source.Directory(testing_folder_path)
+    _dir = Directory(testing_folder_path)
     files_found = _dir.traverse()
     expected_files = {os.path.join(testing_folder_path, "testing_file_include_word"),
                       os.path.join(testing_folder_path, "testing_file_exclude_word"),
@@ -22,7 +22,7 @@ def test_traverse(testing_folder_path):
 
 def test_files_with_content(testing_folder_path):
     word = "hello"
-    _dir = source.Directory(testing_folder_path)
+    _dir = Directory(testing_folder_path)
     files_found_with_word = _dir.files_with_content(word)
     expected_files = {os.path.join(testing_folder_path, "testing_file_include_word"),
                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_include_word")}
