@@ -5,65 +5,6 @@ import pytest
 from mockito import mock, when, patch
 from tomer.source.directory import Directory
 
-
-
-# def test_traverse__full_list(testing_folder_path):
-#     _dir = Directory(testing_folder_path)
-#     _dir_mock = mock(_dir)
-#     when(os).listdir(testing_folder_path).thenReturn(
-#                                         [os.path.join(testing_folder_path, "testing_file_include_word"),
-#                                           os.path.join(testing_folder_path, "testing_file_exclude_word"),
-#                                          os.path.join(testing_folder_path, "testing_file_unicode_error")]
-#                                                     )
-#
-#     when(os).listdir(os.path.join(testing_folder_path, "testing_sub_folder")).thenReturn(
-#         [os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_include_word"),
-#          os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_exclude_word")]
-#                                                                                         )
-#
-#     expected_files = {os.path.join(testing_folder_path, "testing_file_include_word"),
-#                           os.path.join(testing_folder_path, "testing_file_exclude_word"),
-#                           os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_include_word"),
-#                           os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_exclude_word"),
-#                           os.path.join(testing_folder_path, "testing_file_unicode_error")
-#                      }
-
-    # assert expected_files == _dir.traverse()
-
-# def test_traverse__full_list(testing_folder_path):
-#     folder_mock = mock(Directory(path=testing_folder_path))
-#     when(folder_mock).traverse().thenReturn({os.path.join(testing_folder_path, "testing_file_include_word"),
-#                       os.path.join(testing_folder_path, "testing_file_exclude_word"),
-#                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_include_word"),
-#                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_exclude_word"),
-#                       os.path.join(testing_folder_path, "testing_file_unicode_error")
-#                       })
-#     expected_files = {os.path.join(testing_folder_path, "testing_file_include_word"),
-#                       os.path.join(testing_folder_path, "testing_file_exclude_word"),
-#                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_include_word"),
-#                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_exclude_word"),
-#                       os.path.join(testing_folder_path, "testing_file_unicode_error")
-#                       }
-#     assert folder_mock.traverse() == expected_files
-
-# def test_traverse__empty_list(testing_folder_path):
-#     folder_mock = mock(Directory(path=testing_folder_path))
-#     when(folder_mock).traverse().thenReturn({})
-#     expected_files = {}
-#     assert folder_mock.traverse() == expected_files
-
-
-# def test_traverse(testing_folder_path):
-#     _dir = Directory(testing_folder_path)
-#     files_found = _dir.traverse()
-#     expected_files = {os.path.join(testing_folder_path, "testing_file_include_word"),
-#                       os.path.join(testing_folder_path, "testing_file_exclude_word"),
-#                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_include_word"),
-#                       os.path.join(testing_folder_path, "testing_sub_folder", "testing_file_exclude_word"),
-#                       os.path.join(testing_folder_path, "testing_file_unicode_error")
-#                       }
-#     assert set([_file.path for _file in files_found]) == expected_files
-
 def test_traverse(paths,mock_isdir,mock_isFile,mock_listdir):
 
     expected_files = {paths["testing_folder__testing_file_exclude_word"],
