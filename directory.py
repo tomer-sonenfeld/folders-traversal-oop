@@ -15,6 +15,6 @@ class Directory:
                 files_list.append(my_path)
         elif os.path.isdir(my_path):
             for file in os.listdir(my_path):
-                new_dir = Dir(file, my_path)
+                new_dir = Directory(file, my_path)
                 new_dir.list_dirs(word, files_list)
 
