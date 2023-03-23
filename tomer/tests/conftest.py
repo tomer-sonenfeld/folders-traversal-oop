@@ -25,5 +25,7 @@ def paths() -> dict:
         os.path.join(paths["testing_folder"], "testing_file")
     paths["testing_folder\\testing_sub_folder\\testing_file"] = \
         os.path.join(paths["testing_folder\\testing_sub_folder"], "testing_file")
+    paths["testing_folder\\unexisted_path"] = \
+        os.path.join(paths["testing_folder"], "unexisted_path")
 
     return paths
