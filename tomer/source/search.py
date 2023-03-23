@@ -9,7 +9,7 @@ class Search:
         if os.path.exists(path):
             if os.path.isdir(path):
                 _dir = Directory(path)
-                return set([_file.path for _file in _dir.files_with_content(word)])
+                return _dir.files_with_content(word)
             else:
                 return path
         else:
