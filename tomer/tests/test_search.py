@@ -2,8 +2,7 @@ import os
 from tomer.source.search import Search
 from tomer.source.exceptions import UnexistedFolder
 from tomer.source.directory import Directory
-from tomer.source.my_class import original_function
-from mockito import when, patch, mock
+from mockito import when
 import pytest
 
 
@@ -39,6 +38,16 @@ def test_search_by_content__existing_folder(paths,files_scanner):
     expected_files = paths["testing_folder\\testing_file_include_word"]
     assert files_found == expected_files
 
+def test_search_by_content__existing_folder_with_sub_folder(paths,files_scanner):
+    word = "hello"
+    testing_folder_path = paths["testing_folder"]
+    when(os.path).exists(testing_folder_path).thenReturn(True)
+    when(os.path).isdir(testing_folder_path).thenReturn(True)
+    _dir = Directory(testing_folder_path)
+    when(Directory).files_with_content(word).thenReturn([paths["testing_folder\\testing_file_include_word"],paths["testing_folder\\testing_sub_folder\\testing_file_include_word"]])
+    files_found = files_scanner.search_by_content(testing_folder_path,word)
+    expected_files = [paths["testing_folder\\testing_file_include_word"],paths["testing_folder\\testing_sub_folder\\testing_file_include_word"]]
+    assert files_found == expected_files
 
 
 
