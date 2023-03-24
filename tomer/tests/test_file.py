@@ -1,9 +1,9 @@
 
 
 import pytest
+import builtins
 from mockito import when, mock
 from tomer.source.file import File
-import builtins
 
 
 def test_is_word_included__word_included(paths):

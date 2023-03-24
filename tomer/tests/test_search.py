@@ -1,9 +1,9 @@
 import os
+import pytest
 from tomer.source.search import Search
 from tomer.source.exceptions import UnexistedFolder
 from tomer.source.directory import Directory
 from mockito import when
-import pytest
 
 
 @pytest.fixture
