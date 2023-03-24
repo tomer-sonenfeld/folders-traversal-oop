@@ -1,38 +1,62 @@
 
 
-import os
 import pytest
-from mockito import when, mock, patch
+from mockito import when, mock
 from tomer.source.file import File
+import builtins
 
 
-def test_is_word_included__word_included():
+def test_is_word_included__word_included(paths):
     word="hello"
-    testing_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testing_folder", "testing_file_include_word")
+    testing_file_path = paths["testing_folder\\testing_file_include_word"]
+    file_mock = mock()
     _file = File(testing_file_path)
-    assert _file._is_word_included(word)
+    when(builtins).open(testing_file_path,'r').thenReturn(file_mock)
+    when(file_mock).read().thenReturn("hello world")
+    when(file_mock).__enter__().thenReturn(file_mock)
+    when(file_mock).__exit__().thenReturn(None)
+    assert _file.is_word_included(word)
 
-def test_is_word_included__word_not_included():
-    word = "hello"
-    testing_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testing_folder", "testing_file_exclude_word")
+
+def test_is_word_included__word_not_included(paths):
+    word="hello"
+    testing_file_path = paths["testing_folder\\testing_file_exclude_word"]
+    file_mock = mock()
     _file = File(testing_file_path)
-    assert not _file._is_word_included(word)
+    when(builtins).open(testing_file_path,'r').thenReturn(file_mock)
+    when(file_mock).read().thenReturn("world")
+    when(file_mock).__enter__().thenReturn(file_mock)
+    when(file_mock).__exit__().thenReturn(None)
+    assert not _file.is_word_included(word)
 
-# def test_unreadable_file():
-#     word = "hello"
-#     testing_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testing_folder", "testing_file_unicode_error")
-#     _file = File(testing_file_path)
-#     with pytest.raises(UnicodeDecodeError):
-#         with open(_file.path, 'r', encoding='ascii') as _file_opened:
-#             content = _file_opened.read()
+def test_is_word_included__file_not_found(paths):
+    word="hello"
+    testing_file_path = paths["testing_folder\\unexisted_path"]
+    _file = File(testing_file_path)
+    when(builtins).open(testing_file_path,'r').thenRaise(FileNotFoundError)
+    with pytest.raises(FileNotFoundError):
+        _file.is_word_included(word)
 
-# def test_unreadable_file(paths):
-#     word="hello"
-#     mock_open = mock()
-#     testing_file_path = paths["testing_folder__testing_file_unicode_error"]
-#     _file = File(testing_file_path)
-#     when(mock_open)().thenRaise(UnicodeDecodeError)
-#     patch('os.path.isdir', mock_isdir):
-#         with pytest.raises(UnicodeDecodeError):
-#             _file._is_word_included(word)
+
+def test_is_word_included__unreadable_file(paths):
+    word="hello"
+    testing_file_path = paths["testing_folder\\testing_file_unicode_error"]
+    file_mock = mock()
+    _file = File(testing_file_path)
+    when(builtins).open(testing_file_path,'r').thenReturn(file_mock)
+    when(file_mock).__enter__().thenReturn(file_mock)
+    when(file_mock).__exit__().thenReturn(None)
+    when(file_mock).read().thenRaise(UnicodeDecodeError("",bytes(65),0,0,""))
+    assert not _file.is_word_included(word)
+
+def test_is_word_included__empty_file(paths):
+    word="hello"
+    testing_file_path = paths["testing_folder\\testing_file"]
+    file_mock = mock()
+    _file = File(testing_file_path)
+    when(builtins).open(testing_file_path,'r').thenReturn(file_mock)
+    when(file_mock).read().thenReturn("")
+    when(file_mock).__enter__().thenReturn(file_mock)
+    when(file_mock).__exit__().thenReturn(None)
+    assert not _file.is_word_included(word)
 

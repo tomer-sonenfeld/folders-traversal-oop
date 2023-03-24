@@ -2,7 +2,6 @@
 
 import pytest
 import os
-from mockito import when, mock,patch
 
 @pytest.fixture
 def paths() -> dict:
