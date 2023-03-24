@@ -34,8 +34,6 @@ def test_traverse__nested_file_found(paths):
     when(os.path).isfile(paths["testing_folder\\testing_file"]).thenReturn(True)
     when(os.path).isfile(paths["testing_folder\\testing_sub_folder\\testing_file"]).thenReturn(True)
     files_found = _dir.traverse()
-
-
     assert set([_file.path for _file in files_found]) == expected_files
 
 
