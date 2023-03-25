@@ -1,7 +1,7 @@
 import os
 import pytest
 from tomer.source.search import Search
-from tomer.source.exceptions import UnexistedFolder
+from tomer.source.exceptions import NonExistingDirectory
 from tomer.source.directory import Directory
 from mockito import when
 
@@ -14,7 +14,7 @@ def test_search_by_content__unexisted_path(paths,files_scanner):
     word="hello"
     unexisted_path = paths["testing_folder\\unexisted_path"]
     when(os.path).exists(unexisted_path).thenReturn(False)
-    with pytest.raises(UnexistedFolder):
+    with pytest.raises(NonExistingDirectory):
         files_scanner.search_by_content(unexisted_path,word)
 
 def test_search_by_content__path_is_file(paths,files_scanner):

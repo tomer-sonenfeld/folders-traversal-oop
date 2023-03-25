@@ -1,6 +1,6 @@
 
 
-class UnexistedFolder(Exception):
+class NonExistingDirectory(Exception):
     pass
 
 

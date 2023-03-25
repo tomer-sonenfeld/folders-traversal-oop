@@ -1,7 +1,9 @@
 
 
 import os
-from mockito import when
+
+import mockito
+from mockito import when, verifyStubbedInvocationsAreUsed, unstub
 from tomer.source.directory import Directory
 from tomer.source.directory import File
 
@@ -11,12 +13,14 @@ def test_traverse__file_found(paths):
 
     expected_files = {paths["testing_folder\\testing_file"]}
     tested_folder_path = paths["testing_folder"]
-    when(os.path).isdir(tested_folder_path).thenReturn(True)
     _dir = Directory(tested_folder_path)
     when(os).listdir(tested_folder_path).thenReturn(["testing_file"])
     when(os.path).isfile(paths["testing_folder\\testing_file"]).thenReturn(True)
     files_found = _dir.traverse()
     assert set([_file.path for _file in files_found]) == expected_files
+    verifyStubbedInvocationsAreUsed();
+    unstub();
+
 
 
 def test_traverse__nested_file_found(paths):
