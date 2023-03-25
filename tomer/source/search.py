@@ -6,11 +6,15 @@ import os
 
 class Search:
     def search_by_content(self, path:str, word:str) -> list:
-        if os.path.exists(path):
-            if os.path.isdir(path):
+        if not os.path.exists(path):
+            raise UnexistedFolder(path)
+
+        if os.path.isdir(path):
                 _dir = Directory(path)
                 return _dir.files_with_content(word)
-            else:
-                return path
+
+        elif os.path.isfile(path):
+            return path
+
         else:
-            raise UnexistedFolder(path)
+            print("Unsupported path type")
