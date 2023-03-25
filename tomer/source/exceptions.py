@@ -1,6 +1,6 @@
 
 
-class NonExistingDirectory(Exception):
+class NonExistingPathError(Exception):
     pass
 
 
