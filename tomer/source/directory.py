@@ -23,8 +23,8 @@ class Directory:
         files_found=self.traverse()
         files_with_word=set()
         for _file in files_found:
-                if _file.is_word_included(word):
-                    files_with_word.add(_file)
+             if _file.is_word_included(word):
+                files_with_word.add(_file)
         return files_with_word
 
     @property
