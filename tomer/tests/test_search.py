@@ -18,7 +18,7 @@ def test_search_by_content__non_existing_path(teardown):
         tested.search_by_content('/root_dir/file1',word)
 
 def test_search_by_content__path_is_file_with_word(teardown):
-    expected={'/root_dir/file1'}
+    expected_file_path={'/root_dir/file1'}
     word="hello"
     tested= Search()
 
@@ -29,10 +29,10 @@ def test_search_by_content__path_is_file_with_word(teardown):
 
     result=tested.search_by_content('/root_dir/file1',word)
 
-    assert result == expected
+    assert result == expected_file_path
 
 def test_search_by_content__path_is_file_without_word(teardown):
-    expected=set()
+    expected_file_path=set()
     word="hello"
     tested= Search()
 
@@ -43,11 +43,11 @@ def test_search_by_content__path_is_file_without_word(teardown):
 
     result=tested.search_by_content('/root_dir/file1',word)
 
-    assert result == expected
+    assert result == expected_file_path
 
 
 def test_search_by_content__existing_folder(teardown):
-    expected = '/root_dir/file1'
+    expected_file_path = '/root_dir/file1'
     word = "hello"
     tested= Search()
 
@@ -57,11 +57,11 @@ def test_search_by_content__existing_folder(teardown):
 
     result = tested.search_by_content('/root_dir',word)
 
-    assert result == expected
+    assert result == expected_file_path
 
 
 def test_search_by_content__existing_folder_with_sub_folder(teardown):
-    expected = ['/root_dir/file1','/root_dir/sub_dir/file2']
+    expected_files_paths = ['/root_dir/file1','/root_dir/sub_dir/file2']
     word = "hello"
     tested= Search()
 
@@ -71,6 +71,6 @@ def test_search_by_content__existing_folder_with_sub_folder(teardown):
 
     result = tested.search_by_content('/root_dir',word)
 
-    assert result == expected
+    assert result == expected_files_paths
 
 
