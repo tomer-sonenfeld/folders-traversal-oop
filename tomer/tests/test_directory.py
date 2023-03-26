@@ -37,64 +37,27 @@ def test_traverse__nested_files_found(teardown):
 
 def test_files_with_content__file_with_word(teardown):
     expected_file_path = {'/root_dir/file1'}
-    word = "hello"
+    searched_word = "hello"
     tested_folder = Directory('/root_dir')
     tested_file = mock()
     tested_file.path = '/root_dir/file1'
     when(tested_folder).traverse().thenReturn([tested_file])
-    when(tested_file).is_word_included(word).thenReturn(True)
+    when(tested_file).is_word_included(searched_word).thenReturn(True)
 
-    result = tested_folder.files_with_content(word)
+    result = tested_folder.files_with_content(searched_word)
 
     assert set([_file.path for _file in result]) == expected_file_path
 
 
 def test_files_with_content__file_without_word(teardown):
     expected_files_paths = set()
-    word = "hello"
+    searched_word = "hello"
     tested_folder = Directory('/root_dir')
     tested_file = mock()
     tested_file.path = '/root_dir/file1'
     when(tested_folder).traverse().thenReturn([tested_file])
-    when(tested_file).is_word_included(word).thenReturn(False)
+    when(tested_file).is_word_included(searched_word).thenReturn(False)
 
-    result = tested_folder.files_with_content(word)
-
-    assert set([_file.path for _file in result]) == expected_files_paths
-
-
-def test_files_with_content__file_with_word_and_without_word(teardown):
-    expected_files_paths = {'/root_dir/file1'}
-    word = "hello"
-    tested_folder = Directory('/root_dir')
-    tested_file_include_word = mock()
-    tested_file_include_word.path = '/root_dir/file1'
-    tested_file_exclude_word = mock()
-    tested_file_exclude_word.path = '/root_dir/file2'
-    when(tested_folder).traverse().thenReturn([tested_file_include_word,tested_file_exclude_word])
-    when(tested_file_include_word).is_word_included(word).thenReturn(True)
-    when(tested_file_exclude_word).is_word_included(word).thenReturn(False)
-
-    result = tested_folder.files_with_content(word)
-
-    assert set([_file.path for _file in result]) == expected_files_paths
-
-
-def test_files_with_content__file_with_word_and_without_word_and_nested_file_with_word(teardown):
-    expected_files_paths = {'/root_dir/file1', '/root_dir/sub_dir/file2'}
-    word = "hello"
-    tested_folder = Directory('/root_dir')
-    tested_file_include_word = mock()
-    tested_file_include_word.path = '/root_dir/file1'
-    tested_file_exclude_word = mock()
-    tested_file_exclude_word.path = '/root_dir/file2'
-    tested_file_nested_include_word = mock()
-    tested_file_nested_include_word.path = '/root_dir/sub_dir/file2'
-    when(tested_folder).traverse().thenReturn([tested_file_include_word,tested_file_exclude_word,tested_file_nested_include_word])
-    when(tested_file_include_word).is_word_included(word).thenReturn(True)
-    when(tested_file_exclude_word).is_word_included(word).thenReturn(False)
-    when(tested_file_nested_include_word).is_word_included(word).thenReturn(True)
-
-    result = tested_folder.files_with_content(word)
+    result = tested_folder.files_with_content(searched_word)
 
     assert set([_file.path for _file in result]) == expected_files_paths

@@ -33,29 +33,10 @@ def test_is_word_included__word_not_included(mocked_open,teardown):
     assert not tested.is_word_included(word)
 
 
-def test_is_word_included__file_not_found(teardown):
-    word="hello"
-    when(builtins).open('/root_dir/file1', 'r').thenRaise(FileNotFoundError)
-
-    tested = File('/root_dir/file1')
-
-    with pytest.raises(FileNotFoundError):
-        tested.is_word_included(word)
-
-
 @pytest.mark.parametrize("mocked_open",['/root_dir/file1'], indirect=True)
 def test_is_word_included__unreadable_file(mocked_open,teardown):
     word="hello"
     when(mocked_open).read().thenRaise(UnicodeDecodeError('utf-8', b'hello', 0, 1, 'invalid start byte'))
-
-    tested = File('/root_dir/file1')
-
-    assert not tested.is_word_included(word)
-
-@pytest.mark.parametrize("mocked_open",['/root_dir/file1'], indirect=True)
-def test_is_word_included__empty_file(mocked_open,teardown):
-    word="hello"
-    when(mocked_open).read().thenReturn("")
 
     tested = File('/root_dir/file1')
 

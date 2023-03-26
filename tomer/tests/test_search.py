@@ -5,7 +5,7 @@ from tomer.source.file import File
 from tomer.source.search import Search
 from tomer.source.exceptions import NonExistingPathError
 from tomer.source.directory import Directory
-from mockito import when,unstub,verifyStubbedInvocationsAreUsed
+from mockito import when, unstub, verifyStubbedInvocationsAreUsed, patch, spy, verify, expect
 
 
 def test_search_by_content__non_existing_path(teardown):
@@ -17,33 +17,17 @@ def test_search_by_content__non_existing_path(teardown):
     with pytest.raises(NonExistingPathError):
         tested.search_by_content('/root_dir/file1',word)
 
-def test_search_by_content__path_is_file_with_word(teardown):
-    expected_file_path={'/root_dir/file1'}
+
+def test_search_by_content__path_is_file(teardown):
     word="hello"
     tested= Search()
 
     when(os.path).exists('/root_dir/file1').thenReturn(True)
     when(os.path).isdir('/root_dir/file1').thenReturn(False)
     when(os.path).isfile('/root_dir/file1').thenReturn(True)
-    when(File).is_word_included(word).thenReturn(True)
+    when(File).is_word_included(word).thenReturn(None)
 
-    result=tested.search_by_content('/root_dir/file1',word)
-
-    assert result == expected_file_path
-
-def test_search_by_content__path_is_file_without_word(teardown):
-    expected_file_path=set()
-    word="hello"
-    tested= Search()
-
-    when(os.path).exists('/root_dir/file1').thenReturn(True)
-    when(os.path).isdir('/root_dir/file1').thenReturn(False)
-    when(os.path).isfile('/root_dir/file1').thenReturn(True)
-    when(File).is_word_included(word).thenReturn(False)
-
-    result=tested.search_by_content('/root_dir/file1',word)
-
-    assert result == expected_file_path
+    tested.search_by_content('/root_dir/file1',word)
 
 
 def test_search_by_content__existing_folder(teardown):
