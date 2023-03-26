@@ -2,7 +2,10 @@
 
 from .directory import Directory
 from .exceptions import NonExistingPathError
+from .file import File
 import os
+
+
 
 class Search:
     def search_by_content(self, path:str, word:str) -> list:
@@ -14,7 +17,11 @@ class Search:
                 return _dir.files_with_content(word)
 
         elif os.path.isfile(path):
-            return path
+            _file = File(path)
+            if _file.is_word_included(word):
+                return [_file.path]
+            else:
+                return []
 
         else:
             print("Unsupported path type")

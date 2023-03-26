@@ -10,11 +10,14 @@ def test_traverse__file_found():
     expected = {os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir", "file1")}
     when(os).listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir")).thenReturn(["file1"])
     when(os.path).isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir", "file1")).thenReturn(True)
+
     tested = Directory(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir"))
     result = tested.traverse()
+
     assert set([_file.path for _file in result]) == expected
-    verifyStubbedInvocationsAreUsed();
-    unstub();
+
+    verifyStubbedInvocationsAreUsed()
+    unstub()
 
 
 def test_traverse__nested_files_found():
@@ -26,11 +29,14 @@ def test_traverse__nested_files_found():
     when(os.path).isdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir", "sub_dir")).thenReturn(True)
     when(os).listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir", "sub_dir")).thenReturn(["file2"])
     when(os.path).isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir", "sub_dir", "file2")).thenReturn(True)
+
     tested = Directory(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir"))
     result = tested.traverse()
+
     assert set([_file.path for _file in result]) == expected
-    verifyStubbedInvocationsAreUsed();
-    unstub();
+
+    verifyStubbedInvocationsAreUsed()
+    unstub()
 
 
 def test_files_with_content__file_with_word():
@@ -40,10 +46,13 @@ def test_files_with_content__file_with_word():
     tested_file = File(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir", "file1"))
     when(tested_folder).traverse().thenReturn([tested_file])
     when(tested_file).is_word_included(word).thenReturn(True)
+
     result = tested_folder.files_with_content(word)
+
     assert set([_file.path for _file in result]) == expected
-    verifyStubbedInvocationsAreUsed();
-    unstub();
+
+    verifyStubbedInvocationsAreUsed()
+    unstub()
 
 
 def test_files_with_content__file_without_word():
@@ -53,10 +62,13 @@ def test_files_with_content__file_without_word():
     tested_file = File(os.path.join(os.path.dirname(os.path.abspath(__file__)), "root_dir", "file1"))
     when(tested_folder).traverse().thenReturn([tested_file])
     when(tested_file).is_word_included(word).thenReturn(False)
+
     result = tested_folder.files_with_content(word)
+
     assert set([_file.path for _file in result]) == expected
-    verifyStubbedInvocationsAreUsed();
-    unstub();
+
+    verifyStubbedInvocationsAreUsed()
+    unstub()
 
 
 def test_files_with_content__file_with_word_and_without_word():
@@ -68,10 +80,13 @@ def test_files_with_content__file_with_word_and_without_word():
     when(tested_folder).traverse().thenReturn([tested_file_include_word,tested_file_exclude_word])
     when(tested_file_include_word).is_word_included(word).thenReturn(True)
     when(tested_file_exclude_word).is_word_included(word).thenReturn(False)
+
     result = tested_folder.files_with_content(word)
+
     assert set([_file.path for _file in result]) == expected
-    verifyStubbedInvocationsAreUsed();
-    unstub();
+
+    verifyStubbedInvocationsAreUsed()
+    unstub()
 
 
 def test_files_with_content__file_with_word_and_without_word_and_nested_file_with_word():
@@ -86,7 +101,10 @@ def test_files_with_content__file_with_word_and_without_word_and_nested_file_wit
     when(tested_file_include_word).is_word_included(word).thenReturn(True)
     when(tested_file_exclude_word).is_word_included(word).thenReturn(False)
     when(tested_file_nested_include_word).is_word_included(word).thenReturn(True)
+
     result = tested_folder.files_with_content(word)
+
     assert set([_file.path for _file in result]) == expected
-    verifyStubbedInvocationsAreUsed();
-    unstub();
+
+    verifyStubbedInvocationsAreUsed()
+    unstub()
