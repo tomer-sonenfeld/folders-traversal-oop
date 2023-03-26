@@ -6,7 +6,7 @@ from tomer.source.directory import Directory
 from tomer.source.directory import File
 
 
-def test_traverse__file_found():
+def test_traverse__file_found(teardown):
     expected = {'/root_dir/file1'}
     when(os).listdir('/root_dir').thenReturn(["file1"])
     when(os.path).join('/root_dir','file1').thenReturn('/root_dir/file1')
@@ -17,11 +17,8 @@ def test_traverse__file_found():
 
     assert set([_file.path for _file in result]) == expected
 
-    verifyStubbedInvocationsAreUsed()
-    unstub()
 
-
-def test_traverse__nested_files_found():
+def test_traverse__nested_files_found(teardown):
     expected = {'/root_dir/file1', '/root_dir/sub_dir/file2'}
     when(os).listdir('/root_dir').thenReturn(["file1", "sub_dir"])
     when(os.path).join('/root_dir','file1').thenReturn('/root_dir/file1')
@@ -38,11 +35,8 @@ def test_traverse__nested_files_found():
 
     assert set([_file.path for _file in result]) == expected
 
-    verifyStubbedInvocationsAreUsed()
-    unstub()
 
-
-def test_files_with_content__file_with_word():
+def test_files_with_content__file_with_word(teardown):
     expected = {'/root_dir/file1'}
     word = "hello"
     tested_folder = Directory('/root_dir')
@@ -54,11 +48,8 @@ def test_files_with_content__file_with_word():
 
     assert set([_file.path for _file in result]) == expected
 
-    verifyStubbedInvocationsAreUsed()
-    unstub()
 
-
-def test_files_with_content__file_without_word():
+def test_files_with_content__file_without_word(teardown):
     expected = set()
     word = "hello"
     tested_folder = Directory('/root_dir')
@@ -70,11 +61,8 @@ def test_files_with_content__file_without_word():
 
     assert set([_file.path for _file in result]) == expected
 
-    verifyStubbedInvocationsAreUsed()
-    unstub()
 
-
-def test_files_with_content__file_with_word_and_without_word():
+def test_files_with_content__file_with_word_and_without_word(teardown):
     expected = {'/root_dir/file1'}
     word = "hello"
     tested_folder = Directory('/root_dir')
@@ -88,11 +76,8 @@ def test_files_with_content__file_with_word_and_without_word():
 
     assert set([_file.path for _file in result]) == expected
 
-    verifyStubbedInvocationsAreUsed()
-    unstub()
 
-
-def test_files_with_content__file_with_word_and_without_word_and_nested_file_with_word():
+def test_files_with_content__file_with_word_and_without_word_and_nested_file_with_word(teardown):
     expected = {'/root_dir/file1', '/root_dir/sub_dir/file2'}
     word = "hello"
     tested_folder = Directory('/root_dir')
@@ -107,6 +92,3 @@ def test_files_with_content__file_with_word_and_without_word_and_nested_file_wit
     result = tested_folder.files_with_content(word)
 
     assert set([_file.path for _file in result]) == expected
-
-    verifyStubbedInvocationsAreUsed()
-    unstub()
