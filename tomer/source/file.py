@@ -13,6 +13,7 @@ class File:
                 return False
         return word in content
 
+
     @property
     def path(self):
         return self._path
