@@ -1,9 +1,8 @@
 
 
 import os
-from mockito import when, verifyStubbedInvocationsAreUsed, unstub, verify
+from mockito import when, mock
 from tomer.source.directory import Directory
-from tomer.source.directory import File
 
 
 def test_traverse__file_found(teardown):
@@ -40,7 +39,8 @@ def test_files_with_content__file_with_word(teardown):
     expected = {'/root_dir/file1'}
     word = "hello"
     tested_folder = Directory('/root_dir')
-    tested_file = File('/root_dir/file1')
+    tested_file = mock()
+    tested_file.path = '/root_dir/file1'
     when(tested_folder).traverse().thenReturn([tested_file])
     when(tested_file).is_word_included(word).thenReturn(True)
 
@@ -53,7 +53,8 @@ def test_files_with_content__file_without_word(teardown):
     expected = set()
     word = "hello"
     tested_folder = Directory('/root_dir')
-    tested_file = File('/root_dir/file1')
+    tested_file = mock()
+    tested_file.path = '/root_dir/file1'
     when(tested_folder).traverse().thenReturn([tested_file])
     when(tested_file).is_word_included(word).thenReturn(False)
 
@@ -66,8 +67,10 @@ def test_files_with_content__file_with_word_and_without_word(teardown):
     expected = {'/root_dir/file1'}
     word = "hello"
     tested_folder = Directory('/root_dir')
-    tested_file_include_word = File('/root_dir/file1')
-    tested_file_exclude_word = File('/root_dir/file2')
+    tested_file_include_word = mock()
+    tested_file_include_word.path = '/root_dir/file1'
+    tested_file_exclude_word = mock()
+    tested_file_exclude_word.path = '/root_dir/file2'
     when(tested_folder).traverse().thenReturn([tested_file_include_word,tested_file_exclude_word])
     when(tested_file_include_word).is_word_included(word).thenReturn(True)
     when(tested_file_exclude_word).is_word_included(word).thenReturn(False)
@@ -81,9 +84,12 @@ def test_files_with_content__file_with_word_and_without_word_and_nested_file_wit
     expected = {'/root_dir/file1', '/root_dir/sub_dir/file2'}
     word = "hello"
     tested_folder = Directory('/root_dir')
-    tested_file_include_word = File('/root_dir/file1')
-    tested_file_exclude_word = File('/root_dir/file2')
-    tested_file_nested_include_word = File('/root_dir/sub_dir/file2')
+    tested_file_include_word = mock()
+    tested_file_include_word.path = '/root_dir/file1'
+    tested_file_exclude_word = mock()
+    tested_file_exclude_word.path = '/root_dir/file2'
+    tested_file_nested_include_word = mock()
+    tested_file_nested_include_word.path = '/root_dir/sub_dir/file2'
     when(tested_folder).traverse().thenReturn([tested_file_include_word,tested_file_exclude_word,tested_file_nested_include_word])
     when(tested_file_include_word).is_word_included(word).thenReturn(True)
     when(tested_file_exclude_word).is_word_included(word).thenReturn(False)
