@@ -1,7 +1,10 @@
-
+import builtins
 
 import pytest
 import os
+
+from mockito import when, mock
+
 
 @pytest.fixture
 def paths() -> dict:
@@ -28,3 +31,20 @@ def paths() -> dict:
         os.path.join(paths["testing_folder"], "unexisted_path")
 
     return paths
+
+
+@pytest.fixture
+def mocked_open(request):
+    testing_file_path = request.param
+    file_mock = mock()
+    when(builtins).open(testing_file_path, 'r').thenReturn(file_mock)
+    when(file_mock).__enter__().thenReturn(file_mock)
+    when(file_mock).__exit__(None, None, None).thenReturn()
+    return file_mock
+
+@pytest.fixture
+def my_fixture(request):
+    arg_value = request.param
+    # do something with the argument value
+    result = arg_value * 2
+    return result
