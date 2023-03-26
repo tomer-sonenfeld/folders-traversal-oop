@@ -6,7 +6,6 @@ from .file import File
 import os
 
 
-
 class Search:
     def search_by_content(self, path:str, word:str) -> set:
         if not os.path.exists(path):

@@ -2,8 +2,17 @@
 
 import pytest
 import builtins
-from mockito import when, verifyStubbedInvocationsAreUsed, unstub
+from mockito import mock, when, verifyStubbedInvocationsAreUsed, unstub
 from tomer.source.file import File
+
+@pytest.fixture
+def mocked_open(request):
+    testing_file_path = request.param
+    file_mock = mock()
+    when(builtins).open(testing_file_path, 'r').thenReturn(file_mock)
+    when(file_mock).__enter__().thenReturn(file_mock)
+    when(file_mock).__exit__(None, None, None).thenReturn()
+    return file_mock
 
 @pytest.mark.parametrize("mocked_open",['/root_dir/file1'], indirect=True)
 def test_is_word_included__word_included(mocked_open):
