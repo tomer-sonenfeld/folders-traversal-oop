@@ -6,7 +6,7 @@ class Directory:
     def __init__(self, path:str):
         self._path=path
 
-    def traverse(self) -> list:
+    def traverse(self) -> set:
         files_found=set()
         for inner_path in os.listdir(self._path):
             full_path=os.path.join(self._path,inner_path)
@@ -19,7 +19,7 @@ class Directory:
         return files_found
 
 
-    def files_with_content(self,word:str) -> list:
+    def files_with_content(self,word:str) -> set:
         files_found=self.traverse()
         files_with_word=set()
         for _file in files_found:

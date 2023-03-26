@@ -2,7 +2,7 @@
 
 import pytest
 import builtins
-from mockito import when, mock, verifyStubbedInvocationsAreUsed, unstub
+from mockito import when, verifyStubbedInvocationsAreUsed, unstub
 from tomer.source.file import File
 
 @pytest.mark.parametrize("mocked_open",['/root_dir/file1'], indirect=True)
