@@ -7,12 +7,12 @@ from tomer.source.directory import Directory
 
 def test_traverse__file_found(teardown):
     expected_file_path = {'/root_dir/file1'}
-    tested = Directory('/root_dir')
 
     when(os).listdir('/root_dir').thenReturn(["file1"])
     when(os.path).join('/root_dir','file1').thenReturn('/root_dir/file1')
     when(os.path).isfile('/root_dir/file1').thenReturn(True)
 
+    tested = Directory('/root_dir')
     result = tested.traverse()
 
     assert set([_file.path for _file in result]) == expected_file_path
