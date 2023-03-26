@@ -26,9 +26,8 @@ def test_is_word_included__word_not_included(mocked_open):
 
 def test_is_word_included__file_not_found():
     word="hello"
-    tested_file_path = '/root_dir/file1'
-    _file = File(tested_file_path)
-    when(builtins).open(tested_file_path,'r').thenRaise(FileNotFoundError)
+    when(builtins).open('/root_dir/file1', 'r').thenRaise(FileNotFoundError)
+    _file = File('/root_dir/file1')
     with pytest.raises(FileNotFoundError):
         _file.is_word_included(word)
     verifyStubbedInvocationsAreUsed()
