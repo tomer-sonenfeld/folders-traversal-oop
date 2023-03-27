@@ -2,6 +2,3 @@
 
 class NonExistingPathError(Exception):
     pass
-
-
-

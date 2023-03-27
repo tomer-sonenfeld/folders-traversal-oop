@@ -9,7 +9,7 @@ def test_traverse__file_found(teardown):
     expected_file_path = {'/root_dir/file1'}
 
     when(os).listdir('/root_dir').thenReturn(["file1"])
-    when(os.path).join('/root_dir','file1').thenReturn('/root_dir/file1')
+    when(os.path).join('/root_dir', 'file1').thenReturn('/root_dir/file1')
     when(os.path).isfile('/root_dir/file1').thenReturn(True)
 
     tested = Directory('/root_dir')
@@ -22,13 +22,13 @@ def test_traverse__nested_files_found(teardown):
     expected_files_paths = {'/root_dir/file1', '/root_dir/sub_dir/file2'}
 
     when(os).listdir('/root_dir').thenReturn(["file1", "sub_dir"])
-    when(os.path).join('/root_dir','file1').thenReturn('/root_dir/file1')
+    when(os.path).join('/root_dir', 'file1').thenReturn('/root_dir/file1')
     when(os.path).isfile('/root_dir/file1').thenReturn(True)
-    when(os.path).join('/root_dir','sub_dir').thenReturn('/root_dir/sub_dir')
+    when(os.path).join('/root_dir', 'sub_dir').thenReturn('/root_dir/sub_dir')
     when(os.path).isdir('/root_dir/sub_dir').thenReturn(True)
     when(os.path).isfile('/root_dir/sub_dir').thenReturn(False)
     when(os).listdir('/root_dir/sub_dir').thenReturn(["file2"])
-    when(os.path).join('/root_dir/sub_dir','file2').thenReturn('/root_dir/sub_dir/file2')
+    when(os.path).join('/root_dir/sub_dir', 'file2').thenReturn('/root_dir/sub_dir/file2')
     when(os.path).isfile('/root_dir/sub_dir/file2').thenReturn(True)
 
     tested = Directory('/root_dir')

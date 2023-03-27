@@ -16,9 +16,9 @@ def mocked_open(request):
     return file_mock
 
 
-@pytest.mark.parametrize("mocked_open",['/root_dir/file1'], indirect=True)
-def test_is_word_included__word_included(mocked_open,teardown):
-    searched_word="hello"
+@pytest.mark.parametrize("mocked_open", ['/root_dir/file1'], indirect=True)
+def test_is_word_included__word_included(mocked_open, teardown):
+    searched_word = "hello"
     when(mocked_open).read().thenReturn("hello world")
 
     tested = File('/root_dir/file1')
@@ -26,9 +26,9 @@ def test_is_word_included__word_included(mocked_open,teardown):
     assert tested.is_word_included(searched_word)
 
 
-@pytest.mark.parametrize("mocked_open",['/root_dir/file1'], indirect=True)
-def test_is_word_included__word_not_included(mocked_open,teardown):
-    searched_word="hello"
+@pytest.mark.parametrize("mocked_open", ['/root_dir/file1'], indirect=True)
+def test_is_word_included__word_not_included(mocked_open, teardown):
+    searched_word = "hello"
     when(mocked_open).read().thenReturn("world")
 
     tested = File('/root_dir/file1')
@@ -36,9 +36,9 @@ def test_is_word_included__word_not_included(mocked_open,teardown):
     assert not tested.is_word_included(searched_word)
 
 
-@pytest.mark.parametrize("mocked_open",['/root_dir/file1'], indirect=True)
-def test_is_word_included__unreadable_file(mocked_open,teardown):
-    searched_word="hello"
+@pytest.mark.parametrize("mocked_open", ['/root_dir/file1'], indirect=True)
+def test_is_word_included__unreadable_file(mocked_open, teardown):
+    searched_word = "hello"
     when(mocked_open).read().thenRaise(UnicodeDecodeError('utf-8', b'hello', 0, 1, 'invalid start byte'))
 
     tested = File('/root_dir/file1')
