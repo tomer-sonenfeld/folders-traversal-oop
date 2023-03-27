@@ -3,7 +3,7 @@ from mockito import unstub, verifyStubbedInvocationsAreUsed
 
 
 @pytest.fixture
-def teardown():
+def verify_mocks_were_stubbed():
     yield
     try:
         verifyStubbedInvocationsAreUsed()

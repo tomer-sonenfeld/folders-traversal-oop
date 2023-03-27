@@ -7,7 +7,7 @@ from tomer.source.directory import Directory
 from mockito import when, verify
 
 
-def test_search_by_content__non_existing_path(teardown):
+def test_search_by_content__non_existing_path(verify_mocks_were_stubbed):
     searched_word = "hello"
 
     when(os.path).exists('/root_dir/file1').thenReturn(False)
@@ -18,7 +18,7 @@ def test_search_by_content__non_existing_path(teardown):
         tested.search_by_content('/root_dir/file1', searched_word)
 
 
-def test_search_by_content__path_is_file(teardown):
+def test_search_by_content__path_is_file(verify_mocks_were_stubbed):
     searched_word = "hello"
 
     when(os.path).exists('/root_dir/file1').thenReturn(True)
@@ -32,7 +32,7 @@ def test_search_by_content__path_is_file(teardown):
     verify(File, times=1).is_word_included(searched_word)
 
 
-def test_search_by_content__path_is_folder(teardown):
+def test_search_by_content__path_is_folder(verify_mocks_were_stubbed):
     searched_word = "hello"
 
     when(os.path).exists('/root_dir').thenReturn(True)

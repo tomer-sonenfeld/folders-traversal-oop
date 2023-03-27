@@ -17,7 +17,7 @@ def mocked_open(request):
 
 
 @pytest.mark.parametrize("mocked_open", ['/root_dir/file1'], indirect=True)
-def test_is_word_included__word_included(mocked_open, teardown):
+def test_is_word_included__word_included(mocked_open, verify_mocks_were_stubbed):
     searched_word = "hello"
     when(mocked_open).read().thenReturn("hello world")
 
@@ -27,7 +27,7 @@ def test_is_word_included__word_included(mocked_open, teardown):
 
 
 @pytest.mark.parametrize("mocked_open", ['/root_dir/file1'], indirect=True)
-def test_is_word_included__word_not_included(mocked_open, teardown):
+def test_is_word_included__word_not_included(mocked_open, verify_mocks_were_stubbed):
     searched_word = "hello"
     when(mocked_open).read().thenReturn("world")
 
@@ -37,7 +37,7 @@ def test_is_word_included__word_not_included(mocked_open, teardown):
 
 
 @pytest.mark.parametrize("mocked_open", ['/root_dir/file1'], indirect=True)
-def test_is_word_included__unreadable_file(mocked_open, teardown):
+def test_is_word_included__unreadable_file(mocked_open, verify_mocks_were_stubbed):
     searched_word = "hello"
     when(mocked_open).read().thenRaise(UnicodeDecodeError('utf-8', b'hello', 0, 1, 'invalid start byte'))
 

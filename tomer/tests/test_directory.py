@@ -5,7 +5,7 @@ from mockito import when, mock
 from tomer.source.directory import Directory
 from tomer.source.file import File
 
-def test_traverse__file_found(teardown):
+def test_traverse__file_found(verify_mocks_were_stubbed):
     expected_file_path = {'/root_dir/file1'}
 
     when(os).listdir('/root_dir').thenReturn(["file1"])
@@ -18,7 +18,7 @@ def test_traverse__file_found(teardown):
     assert set([_file.path for _file in result]) == expected_file_path
 
 
-def test_traverse__nested_files_found(teardown):
+def test_traverse__nested_files_found(verify_mocks_were_stubbed):
     expected_files_paths = {'/root_dir/file1', '/root_dir/sub_dir/file2'}
 
     when(os).listdir('/root_dir').thenReturn(["file1", "sub_dir"])
@@ -37,7 +37,7 @@ def test_traverse__nested_files_found(teardown):
     assert set([_file.path for _file in result]) == expected_files_paths
 
 
-def test_files_with_content__file_with_word(teardown):
+def test_files_with_content__file_with_word(verify_mocks_were_stubbed):
     expected_file_path = {'/root_dir/file1'}
     searched_word = "hello"
     tested_folder = Directory('/root_dir')
@@ -51,7 +51,7 @@ def test_files_with_content__file_with_word(teardown):
     assert set([_file.path for _file in result]) == expected_file_path
 
 
-def test_files_with_content__file_without_word(teardown):
+def test_files_with_content__file_without_word(verify_mocks_were_stubbed):
     expected_files_paths = set()
     searched_word = "hello"
     tested_folder = Directory('/root_dir')
