@@ -3,7 +3,7 @@
 import os
 from mockito import when, mock
 from tomer.source.directory import Directory
-
+from tomer.source.file import File
 
 def test_traverse__file_found(teardown):
     expected_file_path = {'/root_dir/file1'}
@@ -41,8 +41,7 @@ def test_files_with_content__file_with_word(teardown):
     expected_file_path = {'/root_dir/file1'}
     searched_word = "hello"
     tested_folder = Directory('/root_dir')
-    tested_file = mock()
-    tested_file.path = '/root_dir/file1'
+    tested_file = mock({'path': '/root_dir/file1'}, spec=File)
 
     when(tested_folder).traverse().thenReturn([tested_file])
     when(tested_file).is_word_included(searched_word).thenReturn(True)
@@ -56,8 +55,7 @@ def test_files_with_content__file_without_word(teardown):
     expected_files_paths = set()
     searched_word = "hello"
     tested_folder = Directory('/root_dir')
-    tested_file = mock()
-    tested_file.path = '/root_dir/file1'
+    tested_file = mock({'path': '/root_dir/file1'}, spec=File)
 
     when(tested_folder).traverse().thenReturn([tested_file])
     when(tested_file).is_word_included(searched_word).thenReturn(False)
