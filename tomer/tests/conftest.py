@@ -1,5 +1,3 @@
-
-
 import pytest
 from mockito import unstub, verifyStubbedInvocationsAreUsed
 
