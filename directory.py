@@ -14,10 +14,10 @@ class Directory:
 
     def list_of_files_in_dirs(self, word: str) -> list:
         files_list = []
-        for relative_path in os.listdir(self._full_path):
-            subdir_or_file_path = os.path.join(self._full_path, relative_path)
+        for full_path in os.listdir(self._full_path):
+            subdir_or_file_path = os.path.join(self._full_path, full_path)
             if os.path.isdir(subdir_or_file_path):
-                _dir = Directory(relative_path, self._full_path)
+                _dir = Directory(full_path, self._full_path)
                 files_list.extend(_dir.list_of_files_in_dirs(word))
             elif os.path.isfile(subdir_or_file_path):
                 _file = File(subdir_or_file_path)

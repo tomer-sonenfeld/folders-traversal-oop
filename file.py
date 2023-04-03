@@ -11,4 +11,9 @@ class File:
             with open(self._full_path, 'r') as file:
                 return word in file.read()
         except FileNotFoundError:
-            print("File not opened")
+            print("File not found")
+            return False
+        except UnicodeDecodeError:
+            print("Could not read file")
+            return False
+
