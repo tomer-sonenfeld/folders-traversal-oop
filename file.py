@@ -8,7 +8,7 @@ class File:
 
     def is_word_included(self, word: str):
         try:
-            with open(self._full_path) as file:
+            with open(self._full_path, 'r') as file:
                 return word in file.read()
-        except:
+        except FileNotFoundError:
             print("File not opened")

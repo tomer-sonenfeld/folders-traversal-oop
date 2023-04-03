@@ -14,13 +14,13 @@ class Directory:
 
     def list_of_files_in_dirs(self, word: str) -> list:
         files_list = []
-        for name in os.listdir(self._full_path):
-            inner_path = os.path.join(self._full_path, name)
-            if os.path.isdir(inner_path):
-                new_dir = Directory(name, self._full_path)
-                files_list.extend(new_dir.list_of_files_in_dirs(word))
-            elif os.path.isfile(inner_path):
-                new_file = File(inner_path)
-                if new_file.is_word_included(word):
-                    files_list.append(inner_path)
+        for relative_path in os.listdir(self._full_path):
+            subdir_or_file_path = os.path.join(self._full_path, relative_path)
+            if os.path.isdir(subdir_or_file_path):
+                _dir = Directory(relative_path, self._full_path)
+                files_list.extend(_dir.list_of_files_in_dirs(word))
+            elif os.path.isfile(subdir_or_file_path):
+                _file = File(subdir_or_file_path)
+                if _file.is_word_included(word):
+                    files_list.append(subdir_or_file_path)
         return files_list
