@@ -12,6 +12,8 @@ class File:
         except UnicodeDecodeError:
             return False
 
+
+# return iterator of all words in file, none if open fails
     @classmethod
     def from_path(cls, fullpath: str):
         if os.path.isfile(fullpath):
@@ -23,3 +25,8 @@ class File:
         except AttributeError:
             return self.word_match(item)
 
+    # @classmethod
+    # def calculate_age(cls, name, birth_year):
+    #     # calculate age an set it as a age
+    #     # return new object
+    #     return cls(name, date.today().year - birth_year)

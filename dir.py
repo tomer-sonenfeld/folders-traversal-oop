@@ -1,5 +1,9 @@
 import os
-from training.file_path import File
+from training.file import File
+
+
+class InvalidDirPathException(Exception):
+    pass
 
 
 class Dir:
@@ -13,6 +17,9 @@ class Dir:
             print("Parent is not dir instance")
             self._parent = None
             self._fullpath = os.path.join("", path)
+
+        if not os.path.isdir(self._fullpath):
+            raise InvalidDirPathException
 
     @property
     def path(self):
@@ -37,17 +44,24 @@ class Dir:
     def match_files(self, word: str):
         matched_file_paths = []
         for path in os.listdir(self._fullpath):
-            sub_dir = Dir(path, self)
-            if os.path.isdir(sub_dir.fullpath):
+            sub_dir = Dir.from_path(path, self)
+            if sub_dir is not None:
                 matched_file_paths += sub_dir.match_files(word)
-
-            elif File.check_path(sub_dir.fullpath):
-                path_file = File(sub_dir.fullpath)
-                if path_file.word_match(word):
-                    matched_file_paths.append(sub_dir.fullpath)
-
+            else:
+                path_file = File.from_path(os.path.join(self.fullpath, path))
+                if path_file is not None:
+                    matched_file_paths += [os.path.join(self.fullpath, path)] if path_file.word_match(word) else []
         return matched_file_paths
 
     def __repr__(self):
         return self._fullpath
 
+    @classmethod
+    def from_path(cls, path: str, parent: object = None):
+            if isinstance(parent, Dir):
+                fullpath = os.path.join(parent._fullpath, path)
+            else:
+                fullpath = os.path.join("", path)
+
+            if os.path.isdir(fullpath):
+                return Dir(path, parent)
