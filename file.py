@@ -1,10 +1,6 @@
 import os.path
 
 
-class PathIsNotAFile(Exception):
-    pass
-
-
 class File:
     def __init__(self, fullpath: str):
         self._fullpath = fullpath
@@ -17,12 +13,9 @@ class File:
             return False
 
     @classmethod
-    def check_path(cls, fullpath: str):
-        try:
-            assert os.path.isfile(fullpath)
-            return True
-        except AssertionError:
-            return False
+    def from_path(cls, fullpath: str):
+        if os.path.isfile(fullpath):
+            return cls(fullpath)
 
     def __getattr__(self, item):
         try:

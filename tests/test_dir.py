@@ -1,6 +1,6 @@
+import mockito
 import pytest
 from training.dir import Dir
-import training.dir as t_dir
 import os.path
 from mockito import when, mock, unstub
 import training.file_path as file_path
