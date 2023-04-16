@@ -5,7 +5,7 @@ from mockito import when
 from unittest.mock import patch, mock_open
 
 
-def test_not_directory_exception_caught():
+def test_not_directory__exception_caught():
     when(os.path).isdir("/root_test/").thenReturn(False)
     with pytest.raises(Exception):
         directory.Directory("/root_test/")

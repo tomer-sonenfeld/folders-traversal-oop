@@ -11,11 +11,9 @@ class File(object):
     def path(self):
         return self._path
 
-    def lookup_str_in_file(self, word: str):
+    def lookup_str_in_file(self, word: str) -> bool:
         try:
             with open(self._path) as file_object:
-                if word in file_object.read():
-                    return True
-            return False
+                return word in file_object.read()
         except OSError:
             print(f"Failed to open file: {self._path}")
