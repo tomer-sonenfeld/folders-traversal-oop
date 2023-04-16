@@ -1,11 +1,8 @@
 import os
+import file
 
 
 class FailedToCreateDirectory(Exception):
-    pass
-
-
-class FailedToReadFromFile(Exception):
     pass
 
 
@@ -21,37 +18,40 @@ class Directory(object):
     def path(self):
         return self._path
 
+    def _sub_dir_already_registered(self, new_subdir):
+        for subdir in self._subdirectories:
+            if subdir.path == new_subdir:
+                return True
+        return False
+
+    def _file_already_registered(self, file_path: str):
+        for _file in self._files:
+            if _file.path == file_path:
+                return True
+        return False
+
     def _scan_folder(self):
-        for relative_path in os.listdir(self._path):
-            full_path = os.path.join(self._path, relative_path)
-            if os.path.isdir(full_path):
-                sub_dir_exists = False
-                for sub_dir in self._subdirectories:
-                    if sub_dir.path == full_path:
-                        sub_dir_exists = True
-                        break
-                if not sub_dir_exists:
+        for relative_item_path in os.listdir(self._path):
+            full_item_path = os.path.join(self._path, relative_item_path)
+            if os.path.isdir(full_item_path):
+                if not self._sub_dir_already_registered(full_item_path):
                     try:
-                        new_subdir = Directory(full_path)
+                        new_subdir = Directory(full_item_path)
                         self._subdirectories.append(new_subdir)
                     except FailedToCreateDirectory:
-                        print(f'Failed to create directory: {full_path}')
-            elif full_path not in self._files:
-                self._files.append(full_path)
+                        print(f'Failed to create directory: {full_item_path}')
+            elif os.path.isfile(full_item_path) and not self._file_already_registered(full_item_path):
+                self._files.append(file.File(full_item_path))
 
     def lookup_str_in_files(self, word: str):
         if not os.path.isdir(self._path):
-            print(f'Directory {self._path} no longer exists.')  # Should I print the error?
+            print(f'Directory {self._path} no longer exists.')
             return
         self._scan_folder()
         res = []
         for _file in self._files:
-            try:
-                with open(_file) as file_object:
-                    if word in file_object.read():
-                        res.append(_file)
-            except OSError:
-                print(f"Failed to open file: {_file}")
+            if _file.lookup_str_in_file(word):
+                res.append(_file.path)
         for _dir in self._subdirectories:
             res.extend(_dir.lookup_str_in_files(word))
         return res
