@@ -1,5 +1,5 @@
 import os
-from file import File
+from source.file import File
 
 
 class Directory:
