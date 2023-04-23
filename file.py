@@ -18,6 +18,7 @@ class File:
     def from_path(cls, fullpath: str):
         if os.path.isfile(fullpath):
             return cls(fullpath)
+        return None
 
     def __getattr__(self, item):
         try:

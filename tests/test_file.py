@@ -1,16 +1,21 @@
 import pytest
-from training.dir import Dir
 import builtins
-from mockito import when, mock
+from mockito import when, mock, unstub
 from training.file import File
+import os.path
 
 
-# from path - file/not file
 def test_from_path_not_file_expected_null():
-    assert True
+    bad_file_path = "fake/veryfake"
+    when(os.path).isfile(bad_file_path).thenReturn(False)
+    f = File.from_path(bad_file_path)
+    assert f is None
+
 
 def test_from_path_good_file_path_expected_file_object():
-    assert True
+    good_file_path = "root/file0"
+    when(os.path).isfile(good_file_path).thenReturn(True)
+    assert File.from_path(good_file_path) is not None
 
 
 def test_word_match_open_file_fails():
